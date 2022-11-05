@@ -25,4 +25,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{secrets.Docker_Username}}/udagram-proxy:latest
+          tags: ${{secrets.Docker_Username}}/reverseproxy:latest
