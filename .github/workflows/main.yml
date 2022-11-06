@@ -41,4 +41,4 @@ jobs:
           REPOSITORY: reverseproxy
           IMAGE_TAG: ${{ needs.build-and-push.outputs.img-tag }}
         with:
-          args: set image deployment/$REPOSITORY $REPOSITORY=$REGISTRY/$REPOSITORY:$IMAGE_TAG 
+          args: set image deployment/${{ env.REPOSITORY }} ${{ env.REPOSITORY }}=${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }} 
