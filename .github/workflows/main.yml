@@ -9,6 +9,8 @@ jobs:
   build-and-push:
     name: Build docker images
     runs-on: ubuntu-latest
+    outputs:
+      img-tag: ${{ github.sha }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -25,4 +27,18 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{secrets.Docker_Username}}/reverseproxy:latest
+          tags: ${{secrets.Docker_Username}}/reverseproxy:${{ github.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: deploy to eks
+    needs: [build-and-push]
+    steps:
+      - uses: kodermax/kubectl-aws-eks@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_STAGING }}
+          REGISTRY: ${{ secrets.Docker_Username }}
+          REPOSITORY: reverseproxy
+          IMAGE_TAG: ${{ needs.build-and-push.outputs.img-tag }}
+        with:
+          args: set image deployment/$REPOSITORY $REPOSITORY=$REGISTRY/$REPOSITORY:$IMAGE_TAG 
