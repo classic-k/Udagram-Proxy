@@ -1,9 +1,10 @@
-name: proxyCI-staging
-
+name: proxyCI-main
 on:
+  workflow_dispatch:
   push:
     branches:
-      - staging
+    - main
+
 jobs:
   stage-branch:
     name: cr-pr
@@ -13,6 +14,8 @@ jobs:
     steps:  
       - name: checkout root
         uses: actions/checkout@v3
+      - name: login to hub
+        uses: docker/login-action@v2
         with:
           fetch-depth: 0
       - name: Create pr
