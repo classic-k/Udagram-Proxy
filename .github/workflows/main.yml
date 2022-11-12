@@ -25,7 +25,6 @@ jobs:
           target_branch: staging
           title: Merge staging to main
           body: "**Automated pull request**"
-          #end
       - name: set-outs
         run: echo "pr number ${{ steps.stage-pr.outputs.url }} ${{ steps.stage-pr.outputs.pr_number }}"
   approve:
