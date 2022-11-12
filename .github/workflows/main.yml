@@ -22,8 +22,8 @@ jobs:
           github_token: ${{ secrets.GIT_TOKEN }}
           source_branch: staging
           label: automerge
-          target_branch: main
-          title: Merge staging to main
+          target_branch: staging
+          title: Merge dev to staging
           body: "**Automated pull request**"
       - name: set-outs
         run: echo "pr number ${{ steps.stage-pr.outputs.url }} ${{ steps.stage-pr.outputs.pr_number }}"
