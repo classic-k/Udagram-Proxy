@@ -1,9 +1,9 @@
-name: proxyCI-dev
+name: proxyCI-staging
 
 on:
   push:
     branches:
-      - dev
+      - staging
 jobs:
   dev-branch:
     name: cr-pr
@@ -20,7 +20,7 @@ jobs:
         id: stage-pr
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
-          source_branch: dev
+          source_branch: staging
           label: automerge
           target_branch: staging
           title: Merge dev to staging
